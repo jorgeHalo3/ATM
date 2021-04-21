@@ -1,0 +1,133 @@
+include <stdio.h>
+#include <stdlib.h>
+#include<ctype.h>
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+int main() {
+    int balance = 400; //initial balance
+    char yourPin[256];
+    int doTransaction = 1;
+    int receipt;
+    int pinTries = 0;
+
+
+    while (pinTries < 3) {
+        printf("Please enter your pin: \n");
+        scanf("%s", yourPin);
+
+        if (strlen(yourPin) == 4 && isdigit(yourPin[0]) && isdigit(yourPin[1]) && isdigit(yourPin[2]) && isdigit(yourPin[3])) {
+            doTransaction = 1;
+            break;
+        };
+
+        if (yourPin != 4) {
+            printf("Invalid pin try again.\n ");
+        }
+        pinTries++;
+    }
+
+    if (pinTries == 3) {
+        printf("Sorry you can't continue, contact your bank for assistance");
+        return 0;
+    }
+
+    while (doTransaction == 1) {
+
+        int option;
+        int receiptChoice;
+
+        printf("Would you like a receipt? Enter 1 for YES, 2 for NO");
+        scanf("%d", &receiptChoice);
+
+
+        printf("What do you want to do?: \n");
+        printf("1 - Check your balance.\n");
+        printf("2 - Deposit\n");
+        printf("3 - Withdraw\n");
+        printf("4 - Fast cash\n");
+        printf("5 - get card back\n");
+        scanf("%d", &option);
+
+        if (option == 1) {
+            printf("Your balance is: $%d\n", balance);
+        }
+        else if (option == 2)
+        {
+            int amountDeposit;
+            printf("How much money do you want to deposit: $\n");
+            scanf("%d", &amountDeposit);
+            if (amountDeposit > 0)
+            {
+                balance = balance + amountDeposit;
+            }
+            else
+            {
+                printf("Invalid deposit amount.\n");
+            }
+        }
+        else if (option == 3)
+        {
+            int amountWithdrawn;
+            printf("How much money do you want to withdraw: $\n");
+            scanf("%d", &amountWithdrawn);
+
+            if (amountWithdrawn <= balance && amountWithdrawn > 0)
+            {
+                balance = balance - amountWithdrawn;
+            }
+            else
+            {
+                if (amountWithdrawn > balance)
+                {
+                    printf("Not enough funds\n");
+                }
+                else
+                {
+                    printf("Invalid withdraw amount\n");
+                }
+            }
+        }
+else if (option == 4) {
+int fastCash;
+printf("1 - $20\n");
+printf("2 - $40\n");
+printf("3 - $80\n");
+printf("4 - $100\n");
+scanf("%d", &fastCash);
+if (fastCash == 1) {
+balance = balance - 20;
+}
+else if (fastCash == 2) {
+balance = balance - 40;
+}
+else if (fastCash == 3) {
+balance = balance - 80;
+}
+else if (fastCash == 4) {
+balance = balance - 100;
+}
+}else if (option == 5) {
+            printf("card back Goodbye!");
+            return 0;
+        }
+        else
+        {
+            printf("Invalid option.\n");
+        }
+
+
+        printf("Would you like to make another transaction: \n");
+        printf("1 - yes , 2 - no\n");
+        scanf("%d", &doTransaction);
+
+        if (receipt == 1) {
+            printf("Receipt printed Goodbye\n");
+        }
+        if (receipt == 2) {
+            printf("Goodbye\n");
+        }
+    }
+
+    return 0;
+}
